@@ -142,3 +142,45 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#Log
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,  # Whether to disable the existing logger
+    'formatters': {  # Format of log information display
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(lineno)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(module)s %(lineno)d %(message)s'
+        },
+    },
+    'filters': {  # Filter logs
+        'require_debug_true': {  # Django only outputs logs in debug mode
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {  # Log processing method
+        'console': {  # Output log to terminal
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'file': {  # Output log to file
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/BraTS.log'),  # Location of log files
+            'maxBytes': 300 * 1024 * 1024,
+            'backupCount': 10,
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {  # Loggers
+        'django': {  # A logger named django is defined
+            'handlers': ['console', 'file'],  # Can output logs to terminal and file at the same time
+            'propagate': True,  # Whether to continue to deliver log information
+            'level': 'INFO',  # The lowest log level received by the logger
+        },
+    }
+}

@@ -1,0 +1,3 @@
+INFO 2022-04-11 15:57:45,254 autoreload 598 Watching for file changes with StatReloader
+INFO 2022-04-11 15:57:47,341 urls 26 info
+INFO 2022-04-11 15:57:47,342 basehttp 157 "GET / HTTP/1.1" 200 4
